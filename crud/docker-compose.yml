@@ -1,0 +1,26 @@
+services:
+  db-postgresql:
+    container_name: db-postgresql
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=bdcrud
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - network-crud
+
+volumes:
+  pgdata:
+
+networks:
+  network-crud:
+    driver: bridge
+    name: network-crud
+
+
+
