@@ -24,6 +24,7 @@ import java.io.IOException;
 class CrudApplicationTests {
 
     private final String CATEGORIA_PATH = "/crudapi/v1/categorias";
+    private final String PRODUTO_PATH = "/crudapi/v1/produtos";
 
     @LocalServerPort
     private int PORT = 8082;
@@ -45,7 +46,7 @@ class CrudApplicationTests {
 
     @Order(2)
     @Test
-    void deveListarCategorias() throws IOException {
+    void deveListarCategorias() {
         RestAssured.given()
                 .basePath(CATEGORIA_PATH)
                 .port(PORT)
@@ -93,6 +94,94 @@ class CrudApplicationTests {
     void deveDeletarCategoriaPorId() {
         RestAssured.given()
                 .basePath(CATEGORIA_PATH)
+                .port(PORT)
+                .pathParam("id", 1)
+                .when()
+                .delete("/{id}")
+                .then()
+                .statusCode(HttpStatus.NO_CONTENT.value());
+    }
+
+    @Order(6)
+    @Test
+    void deveSalvarNovaCategoria() throws IOException {
+        RestAssured.given()
+                .basePath(CATEGORIA_PATH)
+                .port(PORT)
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .body(FileUtils.readFileContent("categoria_post.json"))
+                .when()
+                .post()
+                .then()
+                .statusCode(HttpStatus.OK.value());
+    }
+
+    @Order(7)
+    @Test
+    void deveSalvarProdutoComCategoria() throws IOException {
+        RestAssured.given()
+                .basePath(PRODUTO_PATH)
+                .port(PORT)
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .body(FileUtils.readFileContent("produto_post.json"))
+                .when()
+                .post()
+                .then()
+                .statusCode(HttpStatus.OK.value());
+    }
+
+    @Order(8)
+    @Test
+    void deveListarProdutos() {
+        RestAssured.given()
+                .basePath(PRODUTO_PATH)
+                .port(PORT)
+                .accept(ContentType.JSON)
+                .when()
+                .get()
+                .then()
+                .body("descricao", Matchers.hasItems("Carreta antiga"));
+    }
+
+    @Order(9)
+    @Test
+    void deveBuscarProdutoPorId() {
+        RestAssured.given()
+                .basePath(PRODUTO_PATH)
+                .port(PORT)
+                .pathParam("id", 1)
+                .accept(ContentType.JSON)
+                .when()
+                .get("/{id}")
+                .then()
+                .statusCode(HttpStatus.OK.value())
+                .body("descricao", Matchers.equalTo("Carreta antiga"));
+    }
+
+    @Order(10)
+    @Test
+    void deveAtualizarProdutoPorId() throws IOException {
+        RestAssured.given()
+                .basePath(PRODUTO_PATH)
+                .port(PORT)
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .pathParam("id", 1)
+                .body(FileUtils.readFileContent("produto_put.json"))
+                .when()
+                .put("/{id}")
+                .then()
+                .statusCode(HttpStatus.OK.value())
+                .body("descricao", Matchers.equalTo("Carreta nova"));
+    }
+
+    @Order(11)
+    @Test
+    void deveDeletarProdutoPorId() {
+        RestAssured.given()
+                .basePath(PRODUTO_PATH)
                 .port(PORT)
                 .pathParam("id", 1)
                 .when()
