@@ -1,0 +1,5 @@
+DELETE FROM categoria;
+DELETE FROM produto;
+
+ALTER SEQUENCE categoria_seq RESTART WITH 1;
+ALTER SEQUENCE produto_seq RESTART WITH 1;
