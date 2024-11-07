@@ -1,4 +1,4 @@
-# SIS-PRODUTO - Projeto para controle de cadastro de categorias e profutos com SpringBoot
+# SIS-PRODUTO - Projeto para controle de cadastro de categorias e profutos com SpringBoot para ser utilizado com o frontend https://github.com/thiago-jv/SIS-PRODUTO-UI
 
 # Requisitos
 
