@@ -1,21 +1,37 @@
 services:
-  db-postgresql:
-    container_name: db-postgresql
+  db-postgresql-dev:
+    container_name: db-postgresql-dev
     image: postgres
     restart: always
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=bdcrud
+      - POSTGRES_DB=bdcrud_dev
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata_dev:/var/lib/postgresql/data
+    networks:
+      - network-crud
+
+  db-postgresql-teste:
+    container_name: db-postgresql-teste
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=bdcrud_teste
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata_teste:/var/lib/postgresql/data
     networks:
       - network-crud
 
 volumes:
-  pgdata:
+  pgdata_dev:
+  pgdata_teste:
 
 networks:
   network-crud:
