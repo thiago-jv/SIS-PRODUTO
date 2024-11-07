@@ -18,3 +18,6 @@ PostgreSQL
 4 Start a aplicação e comece os testes com a API criada para o frontend https://github.com/thiago-jv/SIS-PRODUTO-UI
 5 Execute a classe de teste para validar os testes de integrações
 ```
+
+# Estrutura
+![BACK-END](https://github.com/thiago-jv/SIS-PRODUTO/blob/main/estrutura.png)
