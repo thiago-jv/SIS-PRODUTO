@@ -54,3 +54,6 @@ MapStruct [Sobre](https://medium.com/mobicareofficial/mapstruct-simplificando-ma
 
 # Estrutura
 ![BACK-END](https://github.com/thiago-jv/SIS-PRODUTO/blob/main/estrutura.png)
+
+# Swagger
+![BACK-END](https://github.com/thiago-jv/SIS-PRODUTO/blob/main/swgger.png)
